@@ -55,6 +55,9 @@ const activeTests = {};
 const testSessions = {};
 
 // Router imports
+app.get('/', (req, res) => {
+  res.send('Hello from Node.js on Vercel!');
+});
 const mcqRoutes = require('./routes/mcq');
 const testRoutes = require('./routes/test');
 const userRoutes = require('./routes/user');
