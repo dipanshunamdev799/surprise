@@ -1,0 +1,43 @@
+--@block
+drop DATABASE surprise_db;
+
+--@block
+CREATE DATABASE surprise_db;
+use surprise_db;
+show tables;
+
+--@block
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  uid VARCHAR(255) UNIQUE NOT NULL,
+  username VARCHAR(255) UNIQUE NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  name VARCHAR(255),
+  enrollment VARCHAR(255),
+  branch VARCHAR(255),
+  phone VARCHAR(255),
+  college VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE tests (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  tid VARCHAR(255) UNIQUE NOT NULL,
+  uid VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  questions JSON NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  expiry_time BIGINT NOT NULL,
+  FOREIGN KEY (uid) REFERENCES users(uid)
+);
+
+CREATE TABLE history (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  tid VARCHAR(255) NOT NULL,
+  uid VARCHAR(255) NOT NULL,
+  joined BOOLEAN DEFAULT FALSE,
+  joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (tid) REFERENCES tests(tid),
+  FOREIGN KEY (uid) REFERENCES users(uid)
+);
